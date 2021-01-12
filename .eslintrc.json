@@ -1,0 +1,46 @@
+{
+    "env": {
+        "es2021": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "comma-dangle": ["warn", "never"],
+        "eqeqeq": "error",
+        "no-dupe-else-if": "error",
+        "no-invalid-this": "warn",
+        "no-param-reassign": "error",
+        "no-shadow": "warn",
+        "no-var": "error",
+        "default-case": "warn",
+        "prefer-const": "warn",
+        "prefer-template": "warn",
+        "@typescript-eslint/no-magic-numbers": [
+            "warn",
+            {
+                "ignore": [0, 1],
+                "ignoreEnums": true,
+                "ignoreNumericLiteralTypes": true,
+                "ignoreReadonlyClassProperties": true
+            }
+        ],
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/no-empty-interface": "off",
+        "@typescript-eslint/ban-ts-comment": "off"
+    }
+}
