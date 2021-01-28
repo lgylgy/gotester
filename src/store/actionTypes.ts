@@ -1,0 +1,4 @@
+export const SORT_BY_NAME = "SORT_BY_NAME"
+export const SORT_BY_PACKAGE = "SORT_BY_PACKAGE"
+export const FILTER_BY_NAME = "FILTER_BY_NAME"
+export const FILTER_BY_PACKAGE = "FILTER_BY_PACKAGE"

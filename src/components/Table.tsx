@@ -8,24 +8,23 @@ import IconButton from '@material-ui/core/IconButton'
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown'
 import TablePagination from '@material-ui/core/TablePagination'
 import Paper from '@material-ui/core/Paper'
-import tests from '../tests.json'
-import { HeaderTableTests } from './HeaderTableTests'
-
+import { connect } from 'react-redux'
+import Headers from './Headers'
+import { ITest, TestsState } from '../type'
+ 
 interface IState {
-    orderBy: string
-    order: 'asc' | 'desc'
     page: number
     rowsPerPage: number
 }
-
-interface IProps {}
+ 
+interface IProps {
+    state: TestsState;
+}
 
 const ROWS_PER_PAGE_OPTION = [10, 25, 50]
 
-export class TableTests extends React.Component<IProps, IState> {
+class TableTests extends React.Component<IProps, IState> {
     public state: IState = {
-        orderBy: 'name',
-        order: 'desc',
         page: 0,
         rowsPerPage: 10
     }
@@ -48,30 +47,18 @@ export class TableTests extends React.Component<IProps, IState> {
         })
     }
 
-    private handleRequestSort = (property: string) => {
-        const { orderBy, order } = this.state
-        const isAsc = orderBy === property && order === 'asc'
-        this.setState({
-            order: isAsc ? 'desc' : 'asc',
-            orderBy: property
-        })
-    }
-
     render(): JSX.Element {
-        const { order, orderBy, page, rowsPerPage } = this.state
+        const { page, rowsPerPage } = this.state
+        const tests = this.props.state
         return (
             <div>
                 <TableContainer component={Paper}>
                     <Table>
-                        <HeaderTableTests
-                            order={order}
-                            orderBy={orderBy}
-                            onRequestSort={this.handleRequestSort}
-                        />
+                        <Headers/>
                         <TableBody>
                             {tests
                                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                                .map((test: any, index: number) => {
+                                .map((test: ITest, index: number) => {
                                     return (
                                         <TableRow key={index}>
                                             <TableCell>
@@ -110,3 +97,9 @@ export class TableTests extends React.Component<IProps, IState> {
         )
     }
 }
+
+const  mapStateToProps = (state: TestsState) => {
+    return {state};
+ }
+
+ export const TableTestsStore = connect(mapStateToProps)(TableTests);
