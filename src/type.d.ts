@@ -4,17 +4,24 @@ export interface ITest {
     package?: string
 }
 
-export type TestsState = ITests[]
+export interface ITestsState {
+    readonly initial: ITests[]
+    tests: ITests[]
+    currentPage: number
+    testsPerPage: number
+    count: number
+    filtered: string
+}
 
-export interface FilterOptions {
+export interface IFilterOptions {
     text: string
 }
 
-export interface SortOptions {
+export interface ISortOptions {
     direction: string
 }
 
 export type TestAction = {
-    type: string;
-    payload: FilterOptions | SortOptions;
+    type: string
+    payload: FilterOptions | SortOptions
 }

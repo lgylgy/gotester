@@ -3,27 +3,28 @@ import SearchBar from 'material-ui-search-bar'
 import { connect } from 'react-redux'
 import { Dispatch } from 'redux'
 import { FILTER_BY_NAME } from '../store/actionTypes'
+import { ITestsState } from '../type'
 
-interface IState {
-    text: string
-}
+interface IState {}
 interface IProps {
+    state: ITestsState
     filter: (text: string) => void
 }
 
 class SearchField extends React.Component<IProps, IState> {
-    public state: IState = {
-        text: ''
-    }
+    public state: IState = {}
 
     private onTextChange = (text: string): void => {
-        this.setState({ text: text })
-        this.props.filter(this.state.text)
+        this.props.filter(text)
     }
 
     public render(): JSX.Element {
-        return <SearchBar value={this.state.text} onChange={this.onTextChange} />
+        return <SearchBar value={this.props.state.filtered} onChange={this.onTextChange} />
     }
+}
+
+const mapStateToProps = (state: ITestsState) => {
+    return { state }
 }
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
@@ -36,4 +37,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(SearchField)
+export default connect(mapStateToProps, mapDispatchToProps)(SearchField)
